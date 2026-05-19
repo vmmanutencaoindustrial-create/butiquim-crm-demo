@@ -1,12 +1,43 @@
-# 🍻 Butiquim CRM — Demo
+# 🍻 Butiquim da Vila — Demo Never Settle Digital
 
-Demo de CRM completo para o **Restaurante Butiquim da Vila** (Barueri/SP), criado pela [Never Settle Digital](https://github.com/vmmanutencaoindustrial-create).
+Demo completa criada pela [Never Settle Digital](https://github.com/vmmanutencaoindustrial-create) para o **Restaurante Butiquim da Vila** (Engenho Novo, Barueri/SP).
 
 ## 🔗 Ver ao vivo
 
-👉 **[Abrir CRM no browser](https://vmmanutencaoindustrial-create.github.io/butiquim-crm-demo/)**
+| Demo | Link |
+|------|------|
+| 🌐 **Site (landing page)** | **[abrir →](https://vmmanutencaoindustrial-create.github.io/butiquim-crm-demo/site.html)** |
+| 📊 **CRM (sistema interno)** | **[abrir →](https://vmmanutencaoindustrial-create.github.io/butiquim-crm-demo/)** |
 
-## O que tem dentro
+Os dois são responsivos (mobile + desktop) e usam a mesma identidade visual: preto, dourado mostarda (#E8B62E) e creme.
+
+---
+
+## 🌐 Site / Landing Page
+
+Single-page focada em **converter cliente em pedido**. Estrutura:
+
+| Seção | O que tem |
+|-------|-----------|
+| **Hero** | Foto real do Combo Família (extraída do IG) + "Sabor que conquista" + CTA WhatsApp |
+| **Stats** | +8 anos, +1,2k clientes, ⭐4,9 Google, ~30min entrega |
+| **Combo da Vila** | Promo destacada: 3 hambúrgueres + Guaraná Kuat 2L • De R$79,99 por R$59,90 |
+| **Cardápio** | 4 categorias (PF, Lanches, Pratos, Bebidas) com 9 itens reais + preços |
+| **Sobre** | História do butiquim de bairro + diferencial |
+| **Como pedir** | 3 canais (WhatsApp, salão, iFood) + horários |
+| **Elogios** | 3 depoimentos reais do Google e Instagram |
+| **Localização** | Google Maps embed + endereço + telefone + Instagram |
+
+### Features especiais
+- 🟢 **Botão WhatsApp flutuante** sempre visível (pulse animation)
+- 📱 **Mobile-first** com drawer lateral
+- 🔗 **CTAs em todo card** abrindo WhatsApp com mensagem pré-preenchida do item
+- 🗺 **Mapa embed** filtrado pra tema dark
+- 🎨 **Animações sutis** (fade-up no hero, hover lift nos cards)
+
+---
+
+## 📊 CRM (sistema interno)
 
 CRM single-page com **10 telas funcionais** + identidade visual idêntica ao Instagram do cliente:
 
@@ -23,19 +54,27 @@ CRM single-page com **10 telas funcionais** + identidade visual idêntica ao Ins
 | 💰 **Financeiro** | Caixa do dia, formas de pagamento, NFC-e, Food Cost %, projeção 7 dias |
 | 👨‍🍳 **Equipe** | Escala, ranking de garçons, comissões |
 
-## Dados reais do cliente aplicados
+### Features especiais
+- 📱 Sidebar **off-canvas** em mobile com hambúrguer
+- 📊 ~70 indicadores numéricos distribuídos pelo sistema
+- 🔥 Faixa sticky de KPIs operacionais sempre visível
+- 📈 Heatmap de horários + sparklines
+
+---
+
+## Dados reais do cliente
 
 - **Localização:** Av. Capitão Francisco César, 651 — Engenho Novo, Barueri/SP
 - **Horário de almoço:** 11h–15h
 - **Cardápio real:** PF Tradicional, PF Frango Grelhado, PF Omelete, Hambúrguer Vila (simples e duplo), Macarrão à Bolonhesa, Filé Parmegiana, Guaraná Kuat 2L, Coca-Cola lata
-- **Promo ativa real:** Combo Família — 3 hambúrgueres + Guaraná Kuat 2L de R$ 79,99 por R$ 59,90
+- **Promo ativa:** Combo Família — 3 hambúrgueres + Guaraná Kuat 2L • De R$ 79,99 por R$ 59,90
 - **Foto real:** Combo Família extraída direto do [post @butiquimdavila.oficial](https://www.instagram.com/butiquimdavila.oficial/) (19/abr)
 
 ## Tech
 
-- HTML + Tailwind CSS (CDN) + JavaScript vanilla
-- Single-file, abre em qualquer browser
-- Sem dependências de backend (é mockup, dados ficam no HTML)
+- **Frontend:** HTML + Tailwind CSS (CDN) + JavaScript vanilla
+- **Hosting:** GitHub Pages
+- **Build:** zero (single-file, abre direto no browser)
 
 ## Estudo de mercado
 
@@ -43,6 +82,4 @@ Features inspiradas em CRMs de restaurante reais — **Toast POS, Anota AI, Goom
 
 ---
 
-🎨 **Identidade visual:** preto profundo + dourado mostarda (#E8B62E) + creme — alinhada ao IG do cliente.
-
-📩 Quer um CRM assim pro seu restaurante? Fala com a Never Settle Digital.
+📩 Quer um CRM ou site assim pro seu restaurante? Fala com a **Never Settle Digital**.
