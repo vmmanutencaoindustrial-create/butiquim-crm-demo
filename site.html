@@ -414,9 +414,10 @@
       </div>
     </a>
     <!-- Menu desktop -->
-    <nav class="menu-desktop items-center gap-7 hidden md:flex">
+    <nav class="menu-desktop items-center gap-6 hidden md:flex">
+      <a href="#semana" class="text-sm font-medium hover:text-[var(--primary)] transition">🍱 Almoço</a>
       <a href="#cardapio" class="text-sm font-medium hover:text-[var(--primary)] transition">Cardápio</a>
-      <a href="#combo" class="text-sm font-medium hover:text-[var(--primary)] transition">Combo da Vila</a>
+      <a href="#combo" class="text-sm font-medium hover:text-[var(--primary)] transition">Combo</a>
       <a href="#sobre" class="text-sm font-medium hover:text-[var(--primary)] transition">Sobre</a>
       <a href="#localizacao" class="text-sm font-medium hover:text-[var(--primary)] transition">Localização</a>
       <a href="https://wa.me/5511910199245?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20um%20pedido%20%F0%9F%8D%BD%EF%B8%8F" target="_blank" class="btn-whatsapp text-sm">
@@ -437,6 +438,7 @@
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
   </button>
   <nav class="flex flex-col gap-1">
+    <a href="#semana" onclick="toggleNav(false)" class="py-3 px-3 rounded-lg hover:bg-[var(--surface-2)] flex items-center gap-3 text-base">🍱 Almoço executivo</a>
     <a href="#cardapio" onclick="toggleNav(false)" class="py-3 px-3 rounded-lg hover:bg-[var(--surface-2)] flex items-center gap-3 text-base">🍛 Cardápio</a>
     <a href="#combo" onclick="toggleNav(false)" class="py-3 px-3 rounded-lg hover:bg-[var(--surface-2)] flex items-center gap-3 text-base">🔥 Combo da Vila</a>
     <a href="#sobre" onclick="toggleNav(false)" class="py-3 px-3 rounded-lg hover:bg-[var(--surface-2)] flex items-center gap-3 text-base">🍻 Sobre</a>
@@ -473,6 +475,12 @@
     <p data-reveal data-delay="2" class="text-base lg:text-xl text-[var(--muted)] max-w-xl mx-auto mb-7 leading-relaxed">
       Comida caseira em Barueri. <span class="text-[var(--text)] font-medium">Almoço, lanche e jantar</span> entregues em ~30min. ⏱
     </p>
+    <!-- Banner vantagem competitiva preço -->
+    <div data-reveal data-delay="2.5" class="mb-7 flex justify-center">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm" style="background:rgba(94,168,94,.12); border:1px solid rgba(94,168,94,.4); color:var(--text)">
+        💰 <span>PF a partir de <b class="text-[var(--success)]">R$ 18</b> — <b class="text-[var(--success)]">35% mais barato</b> que a média do Brasil <span class="text-[var(--muted)]">(R$ 30,27)</span></span>
+      </div>
+    </div>
     <div data-reveal data-delay="3" class="flex flex-wrap justify-center gap-3 mb-10">
       <a href="https://wa.me/5511910199245?text=Ol%C3%A1!%20Quero%20pedir%20pelo%20delivery%20%F0%9F%8D%BD%EF%B8%8F" target="_blank" class="btn-whatsapp magnetic" data-cursor="text" data-cursor-text="Pedir">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
@@ -642,6 +650,184 @@
   </div>
 </section>
 
+<!-- ============== PF DA SEMANA + MARMITA + COMBO EXECUTIVO ============== -->
+<section id="semana" class="py-16 lg:py-24">
+  <div class="max-w-7xl mx-auto px-4 lg:px-8">
+    <div class="text-center mb-10 lg:mb-12" data-reveal>
+      <div class="section-tag">Pra quem trabalha em Alphaville</div>
+      <h2 class="font-display text-5xl lg:text-7xl mt-3">Almoço executivo</h2>
+      <p class="text-[var(--muted)] mt-2 text-sm lg:text-base">PF da semana fixo • Marmita pra levar • Combo rápido</p>
+    </div>
+
+    <!-- Cardápio da Semana -->
+    <div class="surface rounded-2xl p-6 lg:p-8 mb-8" data-reveal data-delay="1">
+      <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-2xl">📅</span>
+            <h3 class="font-display text-2xl lg:text-3xl">PF da semana</h3>
+          </div>
+          <p class="text-xs text-[var(--muted)]">Planeje seu almoço da semana — sabemos o que tem amanhã</p>
+        </div>
+        <a href="https://wa.me/5511910199245?text=Quero%20receber%20o%20card%C3%A1pio%20da%20semana%20todo%20domingo%20no%20WhatsApp" target="_blank" class="btn-ghost text-xs">📲 Receber no WhatsApp toda semana</a>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3">
+        <div class="surface-2 rounded-xl p-4 text-center relative" style="background: linear-gradient(180deg, rgba(232,182,46,.15), rgba(232,182,46,.02)); border: 1px solid rgba(232,182,46,.5)">
+          <span class="absolute -top-2 left-1/2 -translate-x-1/2 pill text-[10px]" style="background:var(--primary); color:#0E0E0E">HOJE</span>
+          <div class="text-[10px] uppercase tracking-widest text-[var(--primary)] font-bold mt-2">Seg</div>
+          <div class="text-3xl my-2">🍛</div>
+          <div class="text-xs font-bold">Bife Acebolado</div>
+          <div class="text-[10px] text-[var(--muted)] mt-1">arroz, feijão, salada</div>
+        </div>
+        <div class="surface-2 rounded-xl p-4 text-center opacity-70">
+          <div class="text-[10px] uppercase tracking-widest text-[var(--muted)]">Ter</div>
+          <div class="text-3xl my-2">🍗</div>
+          <div class="text-xs font-bold">Frango Grelhado</div>
+          <div class="text-[10px] text-[var(--muted)] mt-1">com legumes</div>
+        </div>
+        <div class="surface-2 rounded-xl p-4 text-center opacity-70">
+          <div class="text-[10px] uppercase tracking-widest text-[var(--muted)]">Qua</div>
+          <div class="text-3xl my-2">🐟</div>
+          <div class="text-xs font-bold">Tilápia ao molho</div>
+          <div class="text-[10px] text-[var(--muted)] mt-1">com purê</div>
+        </div>
+        <div class="surface-2 rounded-xl p-4 text-center opacity-70">
+          <div class="text-[10px] uppercase tracking-widest text-[var(--muted)]">Qui</div>
+          <div class="text-3xl my-2">🍝</div>
+          <div class="text-xs font-bold">Bolonhesa</div>
+          <div class="text-[10px] text-[var(--muted)] mt-1">caseira + salada</div>
+        </div>
+        <div class="surface-2 rounded-xl p-4 text-center opacity-70 relative">
+          <span class="absolute -top-2 right-2 pill text-[10px]" style="background:var(--danger); color:#fff">★</span>
+          <div class="text-[10px] uppercase tracking-widest text-[var(--muted)]">Sex</div>
+          <div class="text-3xl my-2">🥩</div>
+          <div class="text-xs font-bold">Picanha + Arroz Alho</div>
+          <div class="text-[10px] text-[var(--muted)] mt-1">vinagrete</div>
+        </div>
+        <div class="surface-2 rounded-xl p-4 text-center opacity-70">
+          <div class="text-[10px] uppercase tracking-widest text-[var(--muted)]">Sáb</div>
+          <div class="text-3xl my-2">🫘</div>
+          <div class="text-xs font-bold">Feijoada</div>
+          <div class="text-[10px] text-[var(--muted)] mt-1">tradicional</div>
+        </div>
+        <div class="surface-2 rounded-xl p-4 text-center opacity-70">
+          <div class="text-[10px] uppercase tracking-widest text-[var(--muted)]">Dom</div>
+          <div class="text-3xl my-2">🍗</div>
+          <div class="text-xs font-bold">Galinhada</div>
+          <div class="text-[10px] text-[var(--muted)] mt-1">caipira</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Marmita + Combo Executivo -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- MARMITA PRA LEVAR -->
+      <div class="surface rounded-2xl p-6 lg:p-8" data-reveal data-delay="2">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-2xl">🍱</span>
+          <h3 class="font-display text-2xl lg:text-3xl">Marmita pra levar</h3>
+          <span class="pill text-[10px]" style="background:rgba(94,168,94,.15); color:var(--success)">+20% no Brasil em 2026</span>
+        </div>
+        <p class="text-xs text-[var(--muted)] mb-5">Embalagem térmica que mantém quentinho até o escritório</p>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3 p-3 rounded-lg bg-[var(--surface-2)]">
+            <div class="text-2xl">🥡</div>
+            <div class="flex-1">
+              <div class="flex justify-between items-baseline">
+                <span class="font-bold">Marmita P</span>
+                <span class="font-display text-xl text-[var(--primary)]">R$ 15</span>
+              </div>
+              <div class="text-[11px] text-[var(--muted)]">Porção reduzida • PF do dia + arroz/feijão • ideal pro lanche</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg bg-[var(--surface-2)]" style="border-left: 2px solid var(--primary)">
+            <div class="text-2xl">🍱</div>
+            <div class="flex-1">
+              <div class="flex justify-between items-baseline">
+                <span class="font-bold">Marmita G <span class="pill text-[9px]" style="background:var(--primary); color:#0E0E0E; margin-left:4px">+ pedida</span></span>
+                <span class="font-display text-xl text-[var(--primary)]">R$ 22</span>
+              </div>
+              <div class="text-[11px] text-[var(--muted)]">PF tradicional completo • arroz, feijão, salada, carne do dia</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg bg-[var(--surface-2)]">
+            <div class="text-2xl">🍰</div>
+            <div class="flex-1">
+              <div class="flex justify-between items-baseline">
+                <span class="font-bold">Marmita PLUS</span>
+                <span class="font-display text-xl text-[var(--primary)]">R$ 28</span>
+              </div>
+              <div class="text-[11px] text-[var(--muted)]">Marmita G + sobremesa caseira + refrigerante lata</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background: linear-gradient(90deg, rgba(232,182,46,.15), rgba(232,182,46,.02)); border: 1px solid rgba(232,182,46,.4)">
+            <div class="text-2xl">📅</div>
+            <div class="flex-1">
+              <div class="flex justify-between items-baseline">
+                <span class="font-bold">Pack Semana <span class="pill text-[9px]" style="background:var(--success); color:#fff; margin-left:4px">economia R$15</span></span>
+                <span class="font-display text-xl text-[var(--primary)]">R$ 95</span>
+              </div>
+              <div class="text-[11px] text-[var(--muted)]">5 marmitas (Seg-Sex) entregues todo dia 11h30 — você só abre e come</div>
+            </div>
+          </div>
+        </div>
+        <a href="https://wa.me/5511910199245?text=Quero%20saber%20mais%20sobre%20as%20Marmitas%20do%20Butiquim%20%F0%9F%8D%B1" target="_blank" class="btn-whatsapp magnetic w-full justify-center mt-5 text-sm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+          Pedir marmita pelo WhatsApp
+        </a>
+      </div>
+
+      <!-- COMBO EXECUTIVO -->
+      <div class="surface rounded-2xl p-6 lg:p-8" data-reveal data-delay="3" style="background: linear-gradient(180deg, var(--surface), rgba(232,182,46,.04)); border-color: rgba(232,182,46,.3)">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-2xl">⚡</span>
+          <h3 class="font-display text-2xl lg:text-3xl">Combo Executivo</h3>
+          <span class="pill text-[10px]" style="background:var(--primary-soft); color:var(--primary)">11h–14h</span>
+        </div>
+        <p class="text-xs text-[var(--muted)] mb-5">Almoço completo + rápido pra quem tem 40min de hora de almoço</p>
+        <div class="text-center mb-4 py-4 rounded-lg" style="background: rgba(232,182,46,.06); border: 1px dashed rgba(232,182,46,.3)">
+          <div class="text-xs uppercase tracking-widest text-[var(--muted)] mb-2">Combo completo</div>
+          <div class="font-display text-5xl lg:text-6xl text-[var(--primary)]">R$ 28</div>
+          <div class="text-xs text-[var(--muted)] mt-1">Mercado: R$ 55,63 • <span class="text-[var(--success)] font-bold">economia 50%</span></div>
+        </div>
+        <div class="space-y-2 text-sm mb-5">
+          <div class="flex items-center gap-3 p-2.5 rounded bg-[var(--surface-2)]">
+            <span class="text-lg">🍛</span>
+            <span class="flex-1">PF do dia <span class="text-[var(--muted)] text-xs">(650 kcal)</span></span>
+          </div>
+          <div class="flex items-center gap-3 p-2.5 rounded bg-[var(--surface-2)]">
+            <span class="text-lg">🥤</span>
+            <span class="flex-1">Bebida 350ml <span class="text-[var(--muted)] text-xs">(à escolha)</span></span>
+          </div>
+          <div class="flex items-center gap-3 p-2.5 rounded bg-[var(--surface-2)]">
+            <span class="text-lg">🍰</span>
+            <span class="flex-1">Sobremesa caseira <span class="text-[var(--muted)] text-xs">(150 kcal)</span></span>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-2 mb-4 text-center text-[10px]">
+          <div class="p-2 rounded bg-[var(--surface-2)]">
+            <div class="font-display text-base text-[var(--primary)]">~800</div>
+            <div class="text-[var(--muted)]">kcal</div>
+          </div>
+          <div class="p-2 rounded bg-[var(--surface-2)]">
+            <div class="font-display text-base text-[var(--primary)]">12min</div>
+            <div class="text-[var(--muted)]">preparo</div>
+          </div>
+          <div class="p-2 rounded bg-[var(--surface-2)]">
+            <div class="font-display text-base text-[var(--primary)]">~25min</div>
+            <div class="text-[var(--muted)]">entrega</div>
+          </div>
+        </div>
+        <a href="https://wa.me/5511910199245?text=Quero%20o%20Combo%20Executivo%20por%20R%24%2028%20%E2%9A%A1" target="_blank" class="btn-whatsapp magnetic w-full justify-center text-sm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+          Pedir Combo Executivo R$ 28
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============== CARDÁPIO ============== -->
 <section id="cardapio" class="py-16 lg:py-24 bg-[var(--bg-2)] border-y border-[var(--border)]">
   <div class="max-w-7xl mx-auto px-4 lg:px-8">
@@ -666,7 +852,10 @@
               <h4 class="font-bold text-lg">PF Tradicional</h4>
               <span class="font-display text-2xl text-[var(--primary)]">R$ 22</span>
             </div>
-            <p class="text-sm text-[var(--muted)] mb-4">Arroz branco, feijão tropeiro, salada, fritas e a carne do dia (a escolher)</p>
+            <p class="text-sm text-[var(--muted)] mb-3">Arroz branco, feijão tropeiro, salada, fritas e a carne do dia (a escolher)</p>
+            <div class="flex items-center gap-2 mb-3 text-[10px] text-[var(--muted)]">
+              <span>🔥 ~720 kcal</span><span>•</span><span>📦 embalagem térmica</span>
+            </div>
             <a href="https://wa.me/5511910199245?text=Quero%20pedir%201%20PF%20Tradicional%20%F0%9F%8D%9B" target="_blank" class="text-sm text-[var(--primary)] hover:text-[var(--primary-hover)] font-semibold inline-flex items-center gap-1">
               Pedir →
             </a>
@@ -679,7 +868,10 @@
               <h4 class="font-bold text-lg">PF Frango Grelhado</h4>
               <span class="font-display text-2xl text-[var(--primary)]">R$ 24</span>
             </div>
-            <p class="text-sm text-[var(--muted)] mb-4">Filé de frango grelhado, arroz, feijão, cenoura e abobrinha refogadas</p>
+            <p class="text-sm text-[var(--muted)] mb-3">Filé de frango grelhado, arroz, feijão, cenoura e abobrinha refogadas</p>
+            <div class="flex items-center gap-2 mb-3 text-[10px] text-[var(--muted)]">
+              <span>🔥 ~580 kcal</span><span>•</span><span class="text-[var(--success)]">✓ Light</span>
+            </div>
             <a href="https://wa.me/5511910199245?text=Quero%20pedir%201%20PF%20Frango%20Grelhado%20%F0%9F%8D%97" target="_blank" class="text-sm text-[var(--primary)] hover:text-[var(--primary-hover)] font-semibold">Pedir → </a>
           </div>
         </div>
@@ -690,7 +882,10 @@
               <h4 class="font-bold text-lg">PF Omelete</h4>
               <span class="font-display text-2xl text-[var(--primary)]">R$ 18</span>
             </div>
-            <p class="text-sm text-[var(--muted)] mb-4">Omelete recheada, arroz, feijão, cenoura e abobrinha — opção mais leve</p>
+            <p class="text-sm text-[var(--muted)] mb-3">Omelete recheada, arroz, feijão, cenoura e abobrinha — opção mais leve</p>
+            <div class="flex items-center gap-2 mb-3 text-[10px] text-[var(--muted)]">
+              <span>🔥 ~520 kcal</span><span>•</span><span class="text-[var(--success)]">✓ Light</span>
+            </div>
             <a href="https://wa.me/5511910199245?text=Quero%20pedir%201%20PF%20Omelete%20%F0%9F%8D%B3" target="_blank" class="text-sm text-[var(--primary)] hover:text-[var(--primary-hover)] font-semibold">Pedir → </a>
           </div>
         </div>
