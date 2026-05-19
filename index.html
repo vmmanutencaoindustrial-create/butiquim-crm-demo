@@ -93,14 +93,61 @@
   .surface:hover svg polyline { stroke-width: 2; }
   /* combo família destaque shimmer */
   @keyframes shimmer { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+  /* =========== MOBILE RESPONSIVO =========== */
+  /* Sidebar vira off-canvas em mobile/tablet pequeno */
+  @media (max-width: 1023px) {
+    .sidebar {
+      position: fixed; inset: 0 auto 0 0; z-index: 60;
+      transform: translateX(-100%);
+      transition: transform .25s ease;
+      box-shadow: 4px 0 24px rgba(0,0,0,.4);
+    }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-backdrop {
+      position: fixed; inset: 0; background: rgba(0,0,0,.6);
+      z-index: 55; opacity: 0; pointer-events: none; transition: opacity .25s;
+    }
+    .sidebar-backdrop.open { opacity: 1; pointer-events: auto; }
+    .mobile-hamburger { display: inline-flex !important; }
+    /* Topbar mais compacta */
+    .topbar-date-full { display: none; }
+    .topbar-search { display: none; }
+    .topbar-new-comanda-text { display: none; }
+    /* KPI bar — sticky horizontal scroll já tem */
+    .kpi-bar-item { min-width: 130px; }
+    /* Tabelas com overflow horizontal smooth */
+    .tbl-mobile-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    /* Page heading menor */
+    .page > div:first-child h1.font-display { font-size: 2rem !important; }
+    /* Cards de prato — imagem menor */
+    .h-32 { height: 7rem; }
+    /* Conteúdo principal padding menor */
+    main > div.flex-1 { padding: 1rem !important; }
+    /* Page header — empilha botões em mobile */
+    .page > div:first-child.flex.items-end.justify-between {
+      flex-direction: column; align-items: flex-start; gap: 1rem;
+    }
+    .page > div:first-child.flex.items-end.justify-between > div:last-child {
+      width: 100%; flex-wrap: wrap;
+    }
+  }
+  /* Mobile só (<640) */
+  @media (max-width: 639px) {
+    .combo-hero-grid { grid-template-columns: 1fr !important; }
+    .combo-hero-grid > div:first-child { min-height: 200px; }
+  }
 </style>
 </head>
 <body class="min-h-screen">
 
 <div class="flex min-h-screen">
 
+  <!-- Backdrop pra fechar sidebar em mobile -->
+  <div id="sidebarBackdrop" class="sidebar-backdrop" onclick="toggleSidebar(false)"></div>
+
   <!-- ============== SIDEBAR ============== -->
-  <aside class="w-64 shrink-0 border-r border-[var(--border)] bg-[var(--bg-2)] flex flex-col">
+  <aside id="sidebar" class="sidebar w-64 shrink-0 border-r border-[var(--border)] bg-[var(--bg-2)] flex flex-col">
     <!-- Logo -->
     <div class="px-5 pt-6 pb-5 border-b border-[var(--border)]">
       <div class="flex items-center justify-center mb-1">
@@ -189,23 +236,27 @@
   <main class="flex-1 flex flex-col min-w-0">
 
     <!-- Topbar -->
-    <header class="h-16 border-b border-[var(--border)] bg-[var(--bg-2)] px-6 flex items-center justify-between sticky top-0 z-30">
-      <div class="flex items-center gap-4">
+    <header class="h-16 border-b border-[var(--border)] bg-[var(--bg-2)] px-4 lg:px-6 flex items-center justify-between sticky top-0 z-30">
+      <div class="flex items-center gap-3">
+        <!-- Hamburger menu (mobile only) -->
+        <button class="mobile-hamburger hidden p-2 rounded-lg hover:bg-[var(--surface-2)] transition" onclick="toggleSidebar()">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
         <div>
-          <div class="text-[11px] uppercase tracking-widest text-[var(--muted)]">Segunda-feira</div>
-          <div class="text-sm font-medium flex items-center gap-2">18 de maio de 2026 <span class="text-[var(--muted)]">• 14:32</span> <span class="pill" style="background:rgba(94,168,94,.15); color:var(--success)"><span class="pill-dot bg-[var(--success)] animate-pulse"></span>Aberto até 15h</span></div>
+          <div class="text-[11px] uppercase tracking-widest text-[var(--muted)] topbar-date-full">Segunda-feira</div>
+          <div class="text-sm font-medium flex items-center gap-2 flex-wrap"><span class="topbar-date-full">18 de maio de 2026 </span><span class="text-[var(--muted)]">• 14:32</span> <span class="pill" style="background:rgba(94,168,94,.15); color:var(--success)"><span class="pill-dot bg-[var(--success)] animate-pulse"></span>Aberto até 15h</span></div>
         </div>
       </div>
-      <div class="flex-1 max-w-md mx-8">
+      <div class="flex-1 max-w-md mx-8 topbar-search">
         <div class="relative">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--muted)]"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           <input type="text" placeholder="Buscar prato, cliente, comanda…" class="w-full bg-[var(--surface)] border border-[var(--border)] rounded-lg pl-9 pr-3 py-2 text-sm outline-none focus:border-[var(--primary)] transition" />
         </div>
       </div>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 lg:gap-3">
         <button class="btn-ghost text-sm flex items-center gap-2">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Nova comanda
+          <span class="topbar-new-comanda-text">Nova comanda</span>
         </button>
         <button class="relative p-2 rounded-lg hover:bg-[var(--surface-2)] transition">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
@@ -315,7 +366,7 @@
         </div>
 
         <!-- KPIs -->
-        <div class="grid grid-cols-4 gap-4 mb-6">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mb-6">
           <div class="kpi-card surface">
             <div class="flex items-start justify-between mb-3">
               <div class="text-xs text-[var(--muted)] uppercase tracking-wider">Vendas hoje</div>
@@ -351,7 +402,7 @@
         </div>
 
         <!-- Mini-KPIs operacionais com sparklines -->
-        <div class="grid grid-cols-4 gap-3 mb-6">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
           <div class="surface rounded-lg p-3.5">
             <div class="flex items-center justify-between mb-2">
               <span class="text-[10px] uppercase tracking-widest text-[var(--muted)]">Ocupação salão</span>
@@ -443,7 +494,7 @@
         </div>
 
         <!-- Reservas + Food cost + Pico oportunidade -->
-        <div class="grid grid-cols-3 gap-3 mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
           <div class="surface rounded-xl p-4">
             <div class="flex items-center justify-between mb-3">
               <div>
@@ -529,7 +580,7 @@
         </div>
 
         <!-- Grid principal -->
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
           <!-- Gráfico vendas -->
           <div class="col-span-2 surface rounded-xl p-5">
@@ -739,7 +790,7 @@
         </div>
 
         <!-- KPI banner: Salão -->
-        <div class="grid grid-cols-5 gap-3 mb-6">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-6">
           <div class="surface rounded-lg p-3.5">
             <div class="text-[10px] uppercase tracking-widest text-[var(--muted)]">Ocupação</div>
             <div class="font-display text-2xl mt-1">67<span class="text-sm text-[var(--muted)]">%</span></div>
@@ -766,7 +817,7 @@
             <div class="text-[10px] text-[var(--muted)] mt-1">Sem pedido há 28min</div>
           </div>
         </div>
-        <div class="grid grid-cols-4 gap-4">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4">
           <div class="mesa mesa-ocupada">
             <div class="flex justify-between items-start">
               <span class="font-display text-3xl">01</span>
@@ -909,7 +960,7 @@
         </div>
 
         <!-- KPI banner: Cozinha -->
-        <div class="grid grid-cols-5 gap-3 mb-6">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-6">
           <div class="surface rounded-lg p-3.5">
             <div class="text-[10px] uppercase tracking-widest text-[var(--muted)]">Pedidos prontos hoje</div>
             <div class="font-display text-2xl mt-1">47</div>
@@ -936,7 +987,7 @@
             <div class="text-[10px] text-[var(--success)] mt-1">↓ Taxa: 0,8%</div>
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <!-- Na chapa -->
           <div class="kanban-col">
             <div class="flex items-center justify-between mb-3">
@@ -1030,7 +1081,7 @@
             </div>
             <button class="btn-ghost text-xs">+ Adicionar canal</button>
           </div>
-          <div class="grid grid-cols-5 gap-2">
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
             <div class="surface-2 rounded-lg p-3 border-l-2 border-[#5EA85E]">
               <div class="flex items-center gap-1.5 mb-1"><span class="text-lg">💬</span><span class="text-xs font-medium">WhatsApp</span></div>
               <div class="font-display text-lg">14</div>
@@ -1060,7 +1111,7 @@
         </div>
 
         <!-- KPI banner: Delivery -->
-        <div class="grid grid-cols-6 gap-3 mb-6">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
           <div class="surface rounded-lg p-3.5">
             <div class="text-[10px] uppercase tracking-widest text-[var(--muted)]">Entregas hoje</div>
             <div class="font-display text-2xl mt-1">23</div>
@@ -1092,8 +1143,8 @@
             <div class="text-[10px] text-[var(--muted)] mt-1">36% do dia</div>
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-4">
-          <div class="col-span-2 surface rounded-xl p-5">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div class="lg:col-span-2 surface rounded-xl p-5">
             <div class="font-semibold mb-4">Pedidos ativos</div>
             <div class="space-y-2">
               <div class="flex items-center gap-3 p-3 rounded-lg bg-[var(--surface-2)]">
@@ -1202,7 +1253,7 @@
         </div>
 
         <!-- QR Code da mesa + Ficha técnica + Cardápio digital -->
-        <div class="grid grid-cols-3 gap-3 mb-5">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-5">
           <div class="surface rounded-xl p-4">
             <div class="flex items-center gap-3">
               <div class="w-14 h-14 rounded-lg bg-white p-1.5 flex items-center justify-center">
@@ -1255,7 +1306,7 @@
             </div>
             <button class="btn-ghost text-xs">Gerar lista de compras</button>
           </div>
-          <div class="grid grid-cols-7 gap-2">
+          <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-2">
             <div class="surface-2 rounded-lg p-3 text-center">
               <div class="text-[10px] uppercase tracking-widest text-[var(--muted)]">Seg • Hoje</div>
               <div class="text-3xl my-2">🍛</div>
@@ -1302,7 +1353,7 @@
         </div>
 
         <!-- Combo destaque -->
-        <div class="surface rounded-xl overflow-hidden mb-5 grid grid-cols-[1fr_2fr]" style="border: 1px solid rgba(232,182,46,.4)">
+        <div class="combo-hero-grid surface rounded-xl overflow-hidden mb-5 grid grid-cols-[1fr_2fr]" style="border: 1px solid rgba(232,182,46,.4)">
           <div class="h-full relative min-h-[200px] overflow-hidden">
             <img src="imgs/combo-familia.webp" alt="Combo Família" class="w-full h-full object-cover" />
             <span class="absolute top-3 left-3 pill" style="background:var(--danger); color:#fff">🔥 PROMO ATIVA</span>
@@ -1328,7 +1379,7 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div class="surface rounded-xl overflow-hidden">
             <div class="h-32 bg-gradient-to-br from-[#8B5A3C] to-[#3a2515] flex items-center justify-center text-6xl relative">🍛<span class="absolute top-2 right-2 pill" style="background:var(--primary); color:#0E0E0E">🥇 Top</span></div>
             <div class="p-4">
@@ -1469,7 +1520,7 @@
         </div>
 
         <!-- KPI banner: Estoque -->
-        <div class="grid grid-cols-5 gap-3 mb-6">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-6">
           <div class="surface rounded-lg p-3.5">
             <div class="text-[10px] uppercase tracking-widest text-[var(--muted)]">Valor em estoque</div>
             <div class="font-display text-2xl mt-1">R$ 12.840</div>
@@ -1496,8 +1547,8 @@
             <div class="text-[10px] text-[var(--success)] mt-1">↓R$420 vs abril</div>
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-4">
-          <div class="col-span-2 surface rounded-xl p-5">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div class="lg:col-span-2 surface rounded-xl p-5">
             <div class="font-semibold mb-4">Insumos</div>
             <div class="space-y-3">
               <div class="flex items-center gap-3">
@@ -1641,7 +1692,7 @@
         </div>
 
         <!-- Programa de Fidelidade -->
-        <div class="surface rounded-xl p-4 mb-6 grid grid-cols-[1fr_1fr_1fr_auto] gap-4 items-center" style="background: linear-gradient(90deg, rgba(232,182,46,.08), rgba(255,212,0,.02)); border-color: rgba(232,182,46,.3)">
+        <div class="surface rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr_auto] gap-4 items-center" style="background: linear-gradient(90deg, rgba(232,182,46,.08), rgba(255,212,0,.02)); border-color: rgba(232,182,46,.3)">
           <div>
             <div class="flex items-center gap-2 mb-1">
               <span class="text-xl">⭐</span>
@@ -1662,7 +1713,7 @@
         </div>
 
         <!-- KPI banner: Clientes -->
-        <div class="grid grid-cols-6 gap-3 mb-6">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
           <div class="surface rounded-lg p-3.5">
             <div class="text-[10px] uppercase tracking-widest text-[var(--muted)]">Total cadastrados</div>
             <div class="font-display text-2xl mt-1">1.247</div>
@@ -1701,8 +1752,8 @@
           <button class="btn-ghost text-sm">😴 Inativos <span class="ml-1 text-xs opacity-70">17</span></button>
           <button class="btn-ghost text-sm">🎂 Aniversariantes <span class="ml-1 text-xs opacity-70">3</span></button>
         </div>
-        <div class="surface rounded-xl overflow-hidden">
-          <table class="w-full text-sm">
+        <div class="surface rounded-xl overflow-hidden tbl-mobile-scroll">
+          <table class="w-full text-sm min-w-[800px]">
             <thead>
               <tr class="text-left text-xs uppercase tracking-wider text-[var(--muted)] border-b border-[var(--border)]">
                 <th class="px-5 py-3">Cliente</th>
@@ -1857,7 +1908,7 @@
           <button class="btn-primary text-sm">+ Nova campanha</button>
         </div>
 
-        <div class="grid grid-cols-2 gap-4 mb-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
           <div class="surface rounded-xl p-5">
             <div class="flex items-start justify-between mb-3">
               <div>
@@ -1906,7 +1957,7 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4 mb-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
           <div class="surface rounded-xl p-5">
             <div class="flex items-start justify-between mb-3">
               <div>
@@ -2018,7 +2069,7 @@
           <button class="btn-primary text-sm">Fechar caixa do dia</button>
         </div>
 
-        <div class="grid grid-cols-4 gap-4 mb-6">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mb-6">
           <div class="kpi-card surface">
             <div class="text-xs text-[var(--muted)] uppercase tracking-wider mb-3">Entrada hoje</div>
             <div class="font-display text-3xl text-[var(--success)]">R$ 3.487,50</div>
@@ -2042,7 +2093,7 @@
         </div>
 
         <!-- Fiscal + Food Cost + Fluxo Caixa -->
-        <div class="grid grid-cols-3 gap-3 mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
           <div class="surface rounded-xl p-4">
             <div class="flex items-center justify-between mb-3">
               <div>
@@ -2079,8 +2130,8 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-3 gap-4">
-          <div class="col-span-2 surface rounded-xl p-5">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div class="lg:col-span-2 surface rounded-xl p-5">
             <div class="font-semibold mb-4">Entradas por forma de pagamento</div>
             <div class="space-y-4">
               <div>
@@ -2161,7 +2212,7 @@
         </div>
 
         <!-- KPI banner: Equipe -->
-        <div class="grid grid-cols-5 gap-3 mb-6">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-6">
           <div class="surface rounded-lg p-3.5">
             <div class="text-[10px] uppercase tracking-widest text-[var(--muted)]">Pessoas em turno</div>
             <div class="font-display text-2xl mt-1">5<span class="text-sm text-[var(--muted)]">/9</span></div>
@@ -2189,8 +2240,8 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-3 gap-4">
-          <div class="surface rounded-xl p-5 col-span-2">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div class="surface rounded-xl p-5 lg:col-span-2">
             <div class="font-semibold mb-4">Ranking de vendas — esta semana</div>
             <div class="space-y-3">
               <div class="flex items-center gap-3 p-3 rounded-lg bg-[var(--surface-2)] border-l-2 border-[var(--primary)]">
@@ -2275,6 +2326,25 @@
 </div>
 
 <script>
+  // Sidebar toggle (mobile)
+  function toggleSidebar(force) {
+    const sb = document.getElementById('sidebar');
+    const bd = document.getElementById('sidebarBackdrop');
+    const willOpen = typeof force === 'boolean' ? force : !sb.classList.contains('open');
+    sb.classList.toggle('open', willOpen);
+    bd.classList.toggle('open', willOpen);
+    document.body.style.overflow = willOpen ? 'hidden' : '';
+  }
+  window.toggleSidebar = toggleSidebar;
+
+  // Fecha sidebar ao redimensionar pra desktop
+  let _wasMobile = window.innerWidth < 1024;
+  window.addEventListener('resize', () => {
+    const isMobile = window.innerWidth < 1024;
+    if (_wasMobile && !isMobile) toggleSidebar(false);
+    _wasMobile = isMobile;
+  });
+
   // Navegação SPA
   const navItems = document.querySelectorAll('.nav-item');
   const pages = document.querySelectorAll('.page');
@@ -2288,7 +2358,10 @@
       const page = document.getElementById('page-' + target);
       if (page) page.classList.add('active');
       // scroll topo
-      document.querySelector('main > div').scrollTo({ top: 0, behavior: 'smooth' });
+      const mainScroll = document.querySelector('main > div.flex-1.overflow-y-auto');
+      if (mainScroll) mainScroll.scrollTo({ top: 0, behavior: 'smooth' });
+      // Auto-fecha sidebar em mobile
+      if (window.innerWidth < 1024) toggleSidebar(false);
     });
   });
 
