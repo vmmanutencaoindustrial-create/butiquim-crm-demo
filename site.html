@@ -224,6 +224,164 @@
   html.lenis { height: auto; }
   .lenis.lenis-smooth { scroll-behavior: auto !important; }
   .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+
+  /* =================== SCROLLTELLING PINADO =================== */
+  #scrolltelling {
+    height: 400vh; /* 4x viewport — espaço pro scroll dos capítulos */
+    position: relative;
+  }
+  .scrolltelling-pin {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+  }
+  .scrolltelling-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(232,182,46,.08) 0%, transparent 60%);
+    z-index: 0;
+  }
+  .scrolltelling-bg img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.2s;
+  }
+  .scrolltelling-bg img.active { opacity: .25; filter: blur(2px) brightness(.6); }
+  .chapter {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    transform: translateY(60px) scale(.95);
+    transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1);
+    pointer-events: none;
+    text-align: center;
+  }
+  .chapter.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+  .chapter-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(8rem, 25vw, 18rem);
+    color: rgba(232,182,46,.08);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1;
+    z-index: 0;
+    pointer-events: none;
+    font-weight: 900;
+  }
+  .chapter-content {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+  }
+  .chapter-tag {
+    color: var(--primary);
+    font-size: .8rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .chapter-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 9vw, 6rem);
+    line-height: .95;
+    margin-bottom: 1.5rem;
+  }
+  .chapter-title em { color: var(--primary); font-style: normal; }
+  .chapter-text {
+    font-size: clamp(1rem, 1.6vw, 1.25rem);
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  /* Progress dots */
+  .scrolltelling-progress {
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 10;
+  }
+  .progress-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border-2);
+    transition: all .35s cubic-bezier(.16,1,.3,1);
+  }
+  .progress-dot.active {
+    background: var(--primary);
+    transform: scale(1.5);
+    box-shadow: 0 0 20px rgba(232,182,46,.6);
+  }
+
+  /* =================== MASK REVEAL nas imagens =================== */
+  .mask-reveal { position: relative; overflow: hidden; }
+  .mask-reveal::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--bg);
+    transform: translateX(0);
+    transition: transform 1.2s cubic-bezier(.7,0,.3,1);
+    z-index: 2;
+  }
+  .mask-reveal.is-visible::after { transform: translateX(101%); }
+
+  /* =================== HORIZONTAL SCROLL =================== */
+  .horiz-scroll {
+    position: relative;
+    height: 200vh; /* 2x viewport pro scroll horizontal */
+  }
+  .horiz-scroll-pin {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  .horiz-scroll-track {
+    display: flex;
+    gap: 2rem;
+    padding-left: 8vw;
+    padding-right: 8vw;
+    will-change: transform;
+  }
+  .horiz-card {
+    flex-shrink: 0;
+    width: 380px;
+    height: 480px;
+    border-radius: 1.2rem;
+    overflow: hidden;
+    position: relative;
+    transition: transform .3s;
+  }
+  .horiz-card:hover { transform: scale(1.03); }
+  @media (max-width: 767px) {
+    .horiz-card { width: 280px; height: 380px; }
+    .scrolltelling-progress { right: 1rem; }
+    .progress-dot { width: 8px; height: 8px; }
+    #scrolltelling { height: 380vh; }
+  }
 </style>
 </head>
 <body class="min-h-screen">
@@ -357,6 +515,67 @@
   </div>
 </section>
 
+<!-- ============== SCROLLTELLING PINADO ============== -->
+<section id="scrolltelling">
+  <div class="scrolltelling-pin">
+    <!-- Background images que trocam por capítulo -->
+    <div class="scrolltelling-bg">
+      <img src="./imgs/combo-familia.webp" alt="" data-chapter="1" class="active" />
+      <img src="./imgs/combo-familia.webp" alt="" data-chapter="2" />
+      <img src="./imgs/combo-familia.webp" alt="" data-chapter="3" />
+    </div>
+
+    <!-- Progress dots -->
+    <div class="scrolltelling-progress">
+      <div class="progress-dot active" data-dot="1"></div>
+      <div class="progress-dot" data-dot="2"></div>
+      <div class="progress-dot" data-dot="3"></div>
+      <div class="progress-dot" data-dot="4"></div>
+    </div>
+
+    <!-- Capítulos -->
+    <div class="chapter active" data-chapter="1">
+      <div class="chapter-number">01</div>
+      <div class="chapter-content">
+        <div class="chapter-tag">Capítulo 1</div>
+        <h2 class="chapter-title">Bateu aquela<br/><em>fome</em> de almoço?</h2>
+        <p class="chapter-text">A correria do trabalho. O estômago roncando. Você só quer uma comida de verdade. Caseira. Que mata a fome com sabor.</p>
+      </div>
+    </div>
+
+    <div class="chapter" data-chapter="2">
+      <div class="chapter-number">02</div>
+      <div class="chapter-content">
+        <div class="chapter-tag">Capítulo 2</div>
+        <h2 class="chapter-title">A gente <em>cozinha</em><br/>com tempero de casa.</h2>
+        <p class="chapter-text">Carne no ponto. Feijão tropeiro que ferveu na panela há 10 minutos. Arroz soltinho. Fritas crocantes. Salada fresca.<br/>O cheirinho de comida boa chega antes do prato.</p>
+      </div>
+    </div>
+
+    <div class="chapter" data-chapter="3">
+      <div class="chapter-number">03</div>
+      <div class="chapter-content">
+        <div class="chapter-tag">Capítulo 3</div>
+        <h2 class="chapter-title">Em <em>30 minutos</em><br/>tá na sua porta.</h2>
+        <p class="chapter-text">Motoboy a caminho. Embalagem que mantém quentinho. WhatsApp avisando quando sair. Você só precisa abrir a porta — e o sabor que conquista tá aí.</p>
+      </div>
+    </div>
+
+    <div class="chapter" data-chapter="4">
+      <div class="chapter-number">04</div>
+      <div class="chapter-content">
+        <div class="chapter-tag">Pronto pra pedir?</div>
+        <h2 class="chapter-title">É só <em>chamar</em><br/>no WhatsApp.</h2>
+        <p class="chapter-text mb-6">(11) 91019-9245 • Almoço 11h–15h • Lanches o dia todo</p>
+        <a href="https://wa.me/5511910199245?text=Ol%C3%A1!%20Quero%20fazer%20um%20pedido%20%F0%9F%8D%BD%EF%B8%8F" target="_blank" class="btn-whatsapp magnetic mt-6" data-cursor="text" data-cursor-text="Pedir">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164"/></svg>
+          Pedir agora pelo WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============== HIGHLIGHTS / STATS ============== -->
 <section class="py-12 lg:py-16 border-y border-[var(--border)] bg-[var(--bg-2)]">
   <div class="max-w-7xl mx-auto px-4 lg:px-8">
@@ -392,9 +611,9 @@
       <p class="text-[var(--muted)] mt-2 text-sm lg:text-base">Pra fechar com chave de ouro o fim de semana</p>
     </div>
     <div class="surface rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] max-w-5xl mx-auto" style="border-color: rgba(232,182,46,.4)" data-reveal data-delay="1">
-      <div class="relative min-h-[280px] lg:min-h-[400px]">
+      <div class="relative min-h-[280px] lg:min-h-[400px] mask-reveal">
         <img src="./imgs/combo-familia.webp" alt="Combo Família" class="w-full h-full object-cover" />
-        <span class="absolute top-4 left-4 pill" style="background:var(--danger); color:#fff">🔥 PROMO ATIVA</span>
+        <span class="absolute top-4 left-4 pill" style="background:var(--danger); color:#fff;z-index:3">🔥 PROMO ATIVA</span>
       </div>
       <div class="p-6 lg:p-10 flex flex-col justify-center">
         <div class="text-[10px] uppercase tracking-[.3em] text-[var(--primary)] font-bold mb-2">Combo da Vila</div>
@@ -1000,6 +1219,43 @@
       inner.style.transform = '';
     });
   });
+
+  // ============== SCROLLTELLING PINADO ==============
+  if (window.gsap && window.ScrollTrigger) {
+    const chapters = document.querySelectorAll('.chapter');
+    const dots = document.querySelectorAll('.progress-dot');
+    const bgImgs = document.querySelectorAll('.scrolltelling-bg img');
+    const totalChapters = chapters.length;
+    ScrollTrigger.create({
+      trigger: '#scrolltelling',
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 0.5,
+      onUpdate: (self) => {
+        const progress = self.progress;
+        // Qual capítulo? Divide o progress total em totalChapters partes
+        const currentChapter = Math.min(Math.floor(progress * totalChapters), totalChapters - 1);
+        chapters.forEach((ch, i) => ch.classList.toggle('active', i === currentChapter));
+        dots.forEach((d, i) => d.classList.toggle('active', i === currentChapter));
+        // BG image cross-fade
+        bgImgs.forEach((img, i) => {
+          const ci = parseInt(img.dataset.chapter) - 1;
+          img.classList.toggle('active', ci === currentChapter);
+        });
+      }
+    });
+  }
+
+  // ============== MASK REVEAL ==============
+  const maskObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        maskObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.25 });
+  document.querySelectorAll('.mask-reveal').forEach(el => maskObserver.observe(el));
 
   // ============== HEADER SHRINK ON SCROLL ==============
   const header = document.querySelector('header');
